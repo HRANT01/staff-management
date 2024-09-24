@@ -1,8 +1,34 @@
 // src/stores/counterStore.js
 import { defineStore } from "pinia";
+import axios from "axios";
 
-export const useCounterStore = defineStore("main", {
-  state: () => ({}),
-  actions: {},
-  getters: {},
+export const useMainStore = defineStore("main", {
+  state: () => ({
+    users: [],
+    loading: false,
+    error: null,
+  }),
+
+  actions: {
+    async fetchUsers() {
+      this.loading = true;
+      this.error = null;
+
+      try {
+        const response = await axios.get("https://reqres.in/api/users?page=2");
+        this.users = response.data.data; // Assuming the users are in response.data.data
+      } catch (err) {
+        this.error = err;
+        console.error("Error fetching users:", err);
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+
+  getters: {
+    getUsers: (state) => state.users,
+    isLoading: (state) => state.loading,
+    getError: (state) => state.error,
+  },
 });
