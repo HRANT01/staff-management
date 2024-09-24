@@ -1,39 +1,40 @@
 <template>
-  <nav aria-label="Pagination">
-    <ul class="flex space-x-2">
-      <li>
-        <button
-          class="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
-          :disabled="currentPage === 1"
-          @click="prevPage"
-        >
-          Previous
-        </button>
-      </li>
-      <li v-for="page in visiblePages" :key="page">
-        <button
-          class="px-3 py-2 text-sm border rounded-md"
-          :class="
-            currentPage === page
-              ? 'bg-blue-500 text-white'
-              : 'bg-white text-gray-700'
-          "
-          @click="goToPage(page)"
-        >
-          {{ page }}
-        </button>
-      </li>
-      <li>
-        <button
-          class="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
-          :disabled="!hasNextPage"
-          @click="nextPage"
-        >
-          Next
-        </button>
-      </li>
-    </ul>
-  </nav>
+  <div
+    aria-label="Pagination"
+    class="flex justify-center items-center gap-2 w-full"
+  >
+    <!-- Previous Button -->
+    <button
+      class="px-4 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+      :disabled="currentPage === 1"
+      @click="prevPage"
+    >
+      Previous
+    </button>
+
+    <!-- Page Numbers -->
+    <div v-for="page in visiblePages" :key="page">
+      <button
+        class="px-4 py-2 text-sm border rounded-md"
+        :class="{
+          'bg-blue-500 text-white': currentPage === page,
+          'bg-white text-gray-700': currentPage !== page,
+        }"
+        @click="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+    </div>
+
+    <!-- Next Button -->
+    <button
+      class="px-4 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+      :disabled="currentPage === props.pagesToShow"
+      @click="nextPage"
+    >
+      Next
+    </button>
+  </div>
 </template>
 
 <script setup>
@@ -50,7 +51,7 @@ const props = defineProps({
   },
   pagesToShow: {
     type: Number,
-    default: 10, // Fixed 10 pages display
+    default: 2, // Number of pages to show
   },
 });
 
@@ -58,7 +59,6 @@ const emit = defineEmits(["update:modelValue"]);
 
 const currentPage = ref(props.modelValue);
 
-// Visible pages are always 1 to pagesToShow (e.g., 1 to 10)
 const visiblePages = computed(() => {
   return Array.from({ length: props.pagesToShow }, (_, i) => i + 1);
 });
@@ -71,7 +71,7 @@ const prevPage = () => {
 };
 
 const nextPage = () => {
-  if (props.hasNextPage) {
+  if (currentPage.value < props.pagesToShow) {
     currentPage.value++;
     emit("update:modelValue", currentPage.value);
   }
@@ -82,3 +82,7 @@ const goToPage = (page) => {
   emit("update:modelValue", currentPage.value);
 };
 </script>
+
+<style scoped>
+/* No custom CSS needed, all styles are handled with Tailwind */
+</style>

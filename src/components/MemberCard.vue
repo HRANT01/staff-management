@@ -1,18 +1,30 @@
 <template>
-  <div>
-    {{ props.member.email }}
-  </div>
-  <div>
-    {{ props.member.last_name }}
-    {{ props.member.first_name }}
-  </div>
-  <div>
-    <img :src="props.member.avatar" alt="Member Image" />
+  <div class="border rounded-lg shadow-lg p-4 bg-white w-full max-w-xs">
+    <!-- Set a max width -->
+    <div class="flex items-center mb-4">
+      <img
+        :src="props.member.avatar"
+        alt="Member Image"
+        class="w-16 h-16 rounded-full mr-4"
+      />
+      <div class="flex flex-col flex-grow">
+        <h2 class="text-lg font-semibold">
+          {{ props.member.first_name }} {{ props.member.last_name }}
+        </h2>
+        <p
+          class="text-gray-600 md:text-base lg:text-lg truncate overflow-hidden whitespace-nowrap"
+          style="font-size: 14px"
+        >
+          <!-- Use fixed text size -->
+          {{ props.member.email }}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { defineProps } from "vue";
 
 const props = defineProps({
   member: {
@@ -20,15 +32,11 @@ const props = defineProps({
     required: true,
   },
 });
-
-// Access the store
-
-// Destructure state and action from the store
-// Fetch users when the component is mounted
 </script>
 
 <style scoped>
-h2 {
-  margin-bottom: 10px;
+/* Ensure the card has a flexible layout */
+div {
+  flex-shrink: 0; /* Prevents the card from shrinking */
 }
 </style>

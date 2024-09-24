@@ -1,6 +1,6 @@
 <template>
-  <div class="flex">
-    <div v-for="member in props.members">
+  <div class="flex flex-wrap justify-center gap-4 m-auto">
+    <div v-for="member in props.members" :key="member.id" class="flex-shrink-0">
       <MemberCard :member="member" />
     </div>
   </div>

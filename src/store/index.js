@@ -10,12 +10,14 @@ export const useMainStore = defineStore("main", {
   }),
 
   actions: {
-    async fetchUsers() {
+    async fetchUsers(page) {
       this.loading = true;
       this.error = null;
 
       try {
-        const response = await axios.get("https://reqres.in/api/users?page=2");
+        const response = await axios.get(
+          `https://reqres.in/api/users?page=${page}`
+        );
         this.users = response.data.data; // Assuming the users are in response.data.data
       } catch (err) {
         this.error = err;
