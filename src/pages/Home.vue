@@ -32,14 +32,12 @@ const filteredMembers = computed(() => {
   });
 });
 
-// Debugging logs
 watch(currentPage, async () => {
   await store.fetchUsers(currentPage.value);
 });
 
 onMounted(async () => {
   await store.fetchUsers(currentPage.value);
-  console.log(members.value, "use");
 });
 </script>
 

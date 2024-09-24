@@ -20,7 +20,6 @@ import { ref, watch } from "vue";
 import CustomInput from "../components/UI/CustomInput.vue";
 import Icon from "./UI/Icon.vue";
 
-// Define props
 const props = defineProps({
   modelValue: {
     type: String,
@@ -28,18 +27,14 @@ const props = defineProps({
   },
 });
 
-// Define emits
 const emit = defineEmits();
 
-// Local state for the search value
 const searchValue = ref(props.modelValue);
 
-// Emit changes to the parent component
 watch(searchValue, (newValue) => {
   emit("update:modelValue", newValue);
 });
 
-// Watch for changes in the prop to keep the local state in sync
 watch(
   () => props.modelValue,
   (newValue) => {

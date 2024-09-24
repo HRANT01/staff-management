@@ -1,6 +1,5 @@
 <template>
   <div class="border rounded-lg shadow-lg p-4 bg-white w-full max-w-xs">
-    <!-- Set a max width -->
     <div class="flex items-center mb-4">
       <img
         :src="props.member.avatar"
@@ -15,7 +14,6 @@
           class="text-gray-600 md:text-base lg:text-lg truncate overflow-hidden whitespace-nowrap"
           style="font-size: 14px"
         >
-          <!-- Use fixed text size -->
           {{ props.member.email }}
         </p>
       </div>
@@ -34,9 +32,4 @@ const props = defineProps({
 });
 </script>
 
-<style scoped>
-/* Ensure the card has a flexible layout */
-div {
-  flex-shrink: 0; /* Prevents the card from shrinking */
-}
-</style>
+<style scoped></style>

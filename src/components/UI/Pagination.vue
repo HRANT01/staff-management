@@ -51,7 +51,7 @@ const props = defineProps({
   },
   pagesToShow: {
     type: Number,
-    default: 2, // Number of pages to show
+    default: 2,
   },
 });
 
@@ -83,6 +83,4 @@ const goToPage = (page) => {
 };
 </script>
 
-<style scoped>
-/* No custom CSS needed, all styles are handled with Tailwind */
-</style>
+<style scoped></style>
